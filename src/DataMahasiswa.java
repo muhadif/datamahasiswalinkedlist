@@ -4,7 +4,7 @@ public class DataMahasiswa {
     public static void main(String[] args){
         char ch;
         String name;
-        int nim;
+        String nim;
         char gender;
         Scanner scan = new Scanner(System.in);
         DoubleLink list = new DoubleLink();
@@ -23,7 +23,7 @@ public class DataMahasiswa {
                     System.out.print("Nama mahasiswa :");
                     name = scan.next();
                     System.out.print("Nim mahasiswa :");
-                    nim = scan.nextInt();
+                    nim = scan.next();
                     do {
                         System.out.print("Jenis Kelamin mahasiswa :");
                         gender = scan.next().charAt(0);
@@ -34,13 +34,13 @@ public class DataMahasiswa {
                 case 2:
                     System.out.println("Hapus data mahasiswa");
                     System.out.print("Nim mahasiswa :");
-                    nim = scan.nextInt();
+                    nim = scan.next();
                     list.delete(nim);
                     break;
                 case 3:
                     System.out.println("Mengubah data mahasiswa");
                     System.out.print("Nim mahasiswa :");
-                    nim = scan.nextInt();
+                    nim = scan.next();
                     list.updateData(nim);
                     break;
 
@@ -55,7 +55,7 @@ public class DataMahasiswa {
         } while (ch == 'Y' || ch == 'y');
 
 //        System.out.println("Data pertama, {22,22.99} dimasukkan dengan insertFirst");
-        list.insertFirst("Hello", 1223123, 'L');
+//        list.insertFirst("Hello", 1223123, 'L');
 //        list.insertFirst("ha", 1223123, 'L');
 //        list.insertFirst("3", 1223123, 'L');
 //        list.insertLast("last", 1223123, 'L');

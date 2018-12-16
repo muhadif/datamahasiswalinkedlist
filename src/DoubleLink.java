@@ -17,7 +17,7 @@ class DoubleLink {
     }
 
     //method for insert first data, use for first data male gender (L)
-    public void insertFirst(String name, int nim, char gender){
+    public void insertFirst(String name, String nim, char gender){
         Node node = new Node(name, nim, gender);
         if(isEmpty())
             last = node;
@@ -30,7 +30,7 @@ class DoubleLink {
     }
 
     //method for insert last data, use for first data female gender (P)
-    public void insertLast(String name, int nim, char gender){
+    public void insertLast(String name, String nim, char gender){
         Node node = new Node(name, nim, gender);
         if(isEmpty())
             first = node;
@@ -42,7 +42,7 @@ class DoubleLink {
     }
 
     //method for insert after, use for first data male gender (L)
-    public boolean insertAfter(int nim, String name, int nim1, char gender) {
+    public boolean insertAfter(String nim, String name, String nim1, char gender) {
         Node index = first;
         while(index.nim != nim) {
             index = index.next;
@@ -51,7 +51,6 @@ class DoubleLink {
         }
         Node newNode = new Node(name,nim1, gender);
         if(index == last) {
-
             last = newNode;
         }
         else {
@@ -63,10 +62,10 @@ class DoubleLink {
         return true; // previous data found, new data added
     }
 
-    public Node delete(int nim1){
+    public Node delete(String nim1){
         if(!isEmpty()){
         Node index = first;
-        while(index.nim != nim1) {
+        while(Long.parseLong(index.nim) != Long.parseLong(nim1)) {
             index = index.next;
             if(index == null)
                 return null; // data not found
@@ -86,12 +85,12 @@ class DoubleLink {
             return null;
     }
 
-    public void updateData(int nim1) {
+    public void updateData(String nim1) {
         char gender;
         if (!isEmpty()) {
             int ch;
             Node index = first;
-            while (index.nim != nim1) {
+            while (Long.parseLong(index.nim) != Long.parseLong(nim1)) {
                 index = index.next;
                 if (index == null)
                     System.out.println("Data tidak ditemukan");
@@ -113,7 +112,7 @@ class DoubleLink {
                          break;
                      case 2:
                          System.out.print("Nim mahasiswa :");
-                         tmp.nim = scan.nextInt();
+                         tmp.nim = scan.next();
                          System.out.print("Ubah data sukses");
                          break;
                      case 3:
@@ -143,22 +142,25 @@ class DoubleLink {
         System.out.println("");
     }
 
-    public boolean checkNim(int nim1){
+    public boolean checkNim(String nim1){
         if(isEmpty()) {
             return false;
         }
         else {
             Node index = first;
             while(index.nim != nim1) {
+                //System.out.println("nim = " + index.nim + " & nim1 = " + nim1);
+                if (Long.parseLong(index.nim) == Long.parseLong(nim1))
+                    break;
                 index = index.next;
-                if(index == null)
+                if (index == null)
                     return false;
             }
             return true;
         }
     }
 
-    public void insertData(String name, int nim1, char gender){
+    public void insertData(String name, String nim1, char gender){
         boolean notFound = false;
         if(!checkNim(nim1)) {
             if (gender == 'L') {
@@ -167,11 +169,12 @@ class DoubleLink {
                 else {
                     Node index = first;
                     Node temp;
-                    if (index.nim < nim1) {
-                        while (index.nim < nim1) {
+
+                    if (Long.parseLong(index.nim) < Long.parseLong(nim1)) {
+                        while (Long.parseLong(index.nim) < Long.parseLong(nim1)) {
                             temp = index;
                             index = index.next;
-                            if (index == null) {
+                            if (index == null || index.gender == 'P' ) {
                                 index = temp;
                                 System.out.println("Nim sebelumnya = " + index.nim);
                                 break;
@@ -190,19 +193,20 @@ class DoubleLink {
                 else {
                     Node index = last;
                     Node temp;
-                    if (index.nim > nim1) {
-                        while (index.nim > nim1) {
+                    if (Long.parseLong(index.nim) > Long.parseLong(nim1)) {
+                        while (Long.parseLong(index.nim) > Long.parseLong(nim1)) {
                             temp = index;
                             index = index.previous;
                             if (index == null || index.gender == 'L') {
                                 index = temp;
                                 System.out.println("Nim sebelumnya = " + index.nim);
+                                System.out.println(insertAfter(index.nim, name, nim1, gender));
                                 break;
                             }
                         }
-                        if (!notFound) {
-                            System.out.println(insertAfter(index.nim, name, nim1, gender));
-                        }
+
+
+
                     } else {
                         insertLast(name, nim1, gender);
                     }

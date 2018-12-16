@@ -1,7 +1,7 @@
 class Node {
     //variable of data this node
     protected String name;
-    protected int nim;
+    protected String nim;
     protected char gender;
 
     //dual address this node, previous and next
@@ -12,12 +12,12 @@ class Node {
         next = null;
         previous = null;
         name = "";
-        nim = 0;
+        nim = "";
         gender = 'L';
     }
 
     //constructor this class with nama, nim, gender
-    public Node(String name, int nim, char gender) {
+    public Node(String name, String nim, char gender) {
         this.name = name;
         this.nim = nim;
         this.gender = gender;
